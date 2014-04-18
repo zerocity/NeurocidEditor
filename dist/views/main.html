@@ -1,5 +1,0 @@
-<div class="nav"><ul class="menu"><li><button ng-click="addShip(true)">add Ship A</button></li><li><button ng-click="addShip(false)">add Ship B</button></li><li><button ng-click="addLine(10)">Add line</button></li><li><button ng-click="zoomOut()">zoomOut</button></li><li><button ng-click="resetZoom()">resetZoom</button></li><li><button ng-click="getJson()">get Json</button></li><li><button ng-click="exportJson()">Export</button></li><li class="totalShips">{{canvasShapes().length}} total</li></ul></div><div class="ships"><ul><li id="ship_list" ng-repeat="shape in canvasShapes()"><span ng-click="getProperties()">Ship {{$index +1}}</span></li></ul></div><div class="properties hide"><ul><li ng-repeat="(propertieName, propertieValue) in properties"><div editable-text="propertieValue">{{propertieName}}</div></li></ul><!--     <ul>
-      <li ng-repeat="(propertieName, propertieValue) in properties" >
-        <div ng-bind-html="propertieValue | setInputField : propertieName "></div>
-      </li>
-    </ul> --></div><div id="editor" class="col-xs-12 col-md-8"><canvas id="canvas" width="500" height="500">You have a very old browser</canvas></div>
