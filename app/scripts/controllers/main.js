@@ -2,23 +2,76 @@
 
 angular.module('neurocidEditorApp')
   .controller('MainCtrl', function ($scope,canvas,Ship) {
+    $scope.isHidden = true ;
 
-    $scope.canvasScale = canvas.getCanvasScale();
+    // set pos in canvas
+    var editorDiv = document.getElementById('editor');
+    editorDiv.scrollTop = 1500;
+    editorDiv.scrollLeft = 1500;
+
+    var centerEditorY = editorDiv.clientHeight / 2
+    var centerEditorX = editorDiv.clientWidth / 2
+
+    var canvasMove = false
+    var startMove = ''
+
+    canvas.getFabric().on('mouse:move', function(o) {
+      var lx = (o.e.layerX-editorDiv.scrollLeft <= 150), // left x
+          rx = (o.e.layerX-editorDiv.scrollLeft >= editorDiv.clientWidth-150), // right x
+          ly = o.e.layerY-editorDiv.scrollTop <= 150, // left y
+          ry = o.e.layerY-editorDiv.scrollTop >= editorDiv.clientHeight-150; // right y
+
+
+      if (lx || rx || ly || ry) {
+
+        if (canvasMove == false) {
+          canvasMove = true
+          startMove = Date.now() + 1500;
+        }
+
+        if (startMove <= Date.now() && canvasMove == true) {
+
+          if (lx) {
+            editorDiv.scrollLeft = editorDiv.scrollLeft - 5;
+            //console.log('can move lx',lx);
+          }
+
+          if (ly) {
+            editorDiv.scrollTop = editorDiv.scrollTop - 5;
+            //console.log('can move ly',ly);
+          }
+
+          if (rx) {
+            editorDiv.scrollLeft = editorDiv.scrollLeft + 5;
+            //console.log('can move rx',rx);
+          }
+
+          if (ry) {
+            editorDiv.scrollTop = editorDiv.scrollTop + 5;
+            //console.log('can move ry',ry);
+          }
+
+        }
+
+      }else{
+        canvasMove = false
+      }
+
+    });
+
+
+    $scope.toggleProperties = function() {
+      $scope.isHidden = !$scope.isHidden;
+    }
 
     $scope.addShip = function(TeamA) {
-      Ship.createShip(TeamA);
+      Ship.createShip(TeamA,editorDiv.scrollLeft + centerEditorX  ,editorDiv.scrollTop + centerEditorY );
     };
 
-    $scope.addLine = function(num) {
-      var shipLine = []
+    $scope.addLine = function(num,TeamA) {
       for (var i = 0; i < num; i++) {
-        var ship = new Ship({left: 20 , top: 20 * i });
-        shipLine.push(ship)
+        Ship.createShip(TeamA);
       };
-
-      var shipGroup = new fabric.Group(shipLine, {left: 20, top: 20 });
-
-      canvas.add(shipGroup);
     };
 
     $scope.getShipsJson = function() {
@@ -75,8 +128,15 @@ angular.module('neurocidEditorApp')
 
     $scope.getProperties = function() {
       $scope.properties = Ship.getProperties(this.shape)
+
+      // set scoll pos  on selected shape
+      editorDiv.scrollTop = $scope.properties.loc[1] - centerEditorY // top
+      editorDiv.scrollLeft = $scope.properties.loc[0] - centerEditorX // left
+
+      // set focus on selected shape
       canvas.setActiveObject(this.shape);
-      $('.properties').toggleClass('hide');
+      $scope.toggleProperties();
+
       canvas.calcOffset();
     };
 
@@ -94,70 +154,6 @@ angular.module('neurocidEditorApp')
         console.log('scroll');
         canvas.calcOffset();
     });
-
-    $scope.zoomOut = function () {
-        // TODO limit max cavas zoom out
-
-        canvasScale = canvasScale / SCALE_FACTOR;
-
-        $scope.canvasScale = canvasScale;
-
-        canvas.setHeight(canvas.getHeight() * (1 / SCALE_FACTOR));
-        canvas.setWidth(canvas.getWidth() * (1 / SCALE_FACTOR));
-
-        var objects = canvas.getObjects();
-        for (var i in objects) {
-            var scaleX = objects[i].scaleX;
-            var scaleY = objects[i].scaleY;
-            var left = objects[i].left;
-            var top = objects[i].top;
-
-            var tempScaleX = scaleX * (1 / SCALE_FACTOR);
-            var tempScaleY = scaleY * (1 / SCALE_FACTOR);
-            var tempLeft = left * (1 / SCALE_FACTOR);
-            var tempTop = top * (1 / SCALE_FACTOR);
-
-            objects[i].scaleX = tempScaleX;
-            objects[i].scaleY = tempScaleY;
-            objects[i].left = tempLeft;
-            objects[i].top = tempTop;
-
-            objects[i].setCoords();
-        }
-
-        canvas.renderAll();
-    }
-
-    // Reset Zoom
-    $scope.resetZoom = function () {
-
-        canvas.setHeight(canvas.getHeight() * (1 / canvasScale));
-        canvas.setWidth(canvas.getWidth() * (1 / canvasScale));
-
-        var objects = canvas.getObjects();
-        for (var i in objects) {
-            var scaleX = objects[i].scaleX;
-            var scaleY = objects[i].scaleY;
-            var left = objects[i].left;
-            var top = objects[i].top;
-
-            var tempScaleX = scaleX * (1 / canvasScale);
-            var tempScaleY = scaleY * (1 / canvasScale);
-            var tempLeft = left * (1 / canvasScale);
-            var tempTop = top * (1 / canvasScale);
-
-            objects[i].scaleX = tempScaleX;
-            objects[i].scaleY = tempScaleY;
-            objects[i].left = tempLeft;
-            objects[i].top = tempTop;
-
-            objects[i].setCoords();
-        }
-
-        canvas.renderAll();
-
-        canvasScale = 1;
-    }
 
   }).filter('isValue', function () {
    return function(input, trueValue) {

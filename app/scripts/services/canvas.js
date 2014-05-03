@@ -23,13 +23,19 @@ angular.module('neurocidEditorApp')
 
     // Public API here
     return {
+      getFabric : function() {
+        return canvas
+      },
       set : function(object) {
         canvas.add(object);
         canvas.renderAll();
         canvas.calcOffset();
       },
-      setCanvasSCale : function () {
+      setCanvasScale : function () {
         canvasScale = canvasScale / SCALE_FACTOR
+      },
+      getScaleFactor : function() {
+        return SCALE_FACTOR
       },
       getCanvasScale : function () {
         return canvasScale / SCALE_FACTOR

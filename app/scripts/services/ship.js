@@ -4,6 +4,10 @@ angular.module('neurocidEditorApp')
   .factory('Ship', function (canvas) {
     // Service logic
     // ...
+    var multiplicator = 1 ;
+    var PropertyIdCount = 0;
+    var data = []
+
 
     var Ship = fabric.util.createClass(fabric.Circle, {
 
@@ -34,6 +38,7 @@ angular.module('neurocidEditorApp')
           fill: 'red'
         });
         // Neurocid default properties
+        this.set('PropertyId', options.PropertyId || 0);
         this.set('TeamA', options.IsDummy || true);
         this.set('IsDummy', options.IsDummy || false);
         this.set('CanShoot', options.CanShoot || true);
@@ -41,12 +46,14 @@ angular.module('neurocidEditorApp')
         this.set('CanMove', options.CanMove || true);
         this.set('DisableProjectileFitness', options.DisableProjectileFitness || false);
 
+        // float
         this.set('Range', options.Range || 50.0);
         this.set('MaxSpeed', options.MaxSpeed || 1.0);
         this.set('MaxRotation', options.MaxRotation || 1.0);
         this.set('MaxFuel', options.MaxFuel || 10000.0);
         this.set('FuelRate', options.FuelRate || 1.0);
 
+        // int
         this.set('MaxCooldown', options.MaxCooldown|| 5);
         this.set('MaxAmmo', options.MaxAmmo || 5);
         this.set('MaxDamage', options.MaxDamage || 6);
@@ -57,6 +64,7 @@ angular.module('neurocidEditorApp')
 
       toObject: function() {
         return fabric.util.object.extend(this.callSuper('toObject'), {
+          PropertyId : this.get('PropertyId'),
           TeamA: this.get('TeamA'),
           IsDummy: this.get('IsDummy'),
           CanShoot: this.get('CanShoot'),
@@ -86,24 +94,35 @@ angular.module('neurocidEditorApp')
 
     // Public API here
     return {
-      createShip: function (TeamA){
+      getCanvas : function() {
+        console.log(canvas);
+        return canvas
+      },
+      createShip: function (TeamA,posX,posY){
         if (TeamA) {
-          var ship = new Ship({left: 50 , top: 20 + 20 * canvas.canvasShapes().length });
+          var ship = new Ship({left: posX, top: posY});
+          PropertyIdCount = PropertyIdCount + 1;
+          ship.PropertyId =PropertyIdCount
           ship.angle = 90;
           ship.radius = 3 * canvas.getCanvasScale()
+          data.push(ship);
         } else {
           // Team B
           var ship = new Ship({left: 100 , top: 20 + 20 * canvas.canvasShapes().length });
+          PropertyIdCount = PropertyIdCount + 1;
+          ship.PropertyId =PropertyIdCount
           ship.TeamA = false;
           ship.radius = 3 * canvas.getCanvasScale()
           ship.fill= 'blue';
           ship.angle = 360 - 90;
+          data.push(ship);
         }
         return canvas.set(ship);
       },
       getProperties: function(shape) {
+        console.log(shape);
          var cleaned = _.omit(shape.toJSON(),'backgroundColor', 'flipX' , 'flipY' , 'height' , 'opacity' , 'originX' , 'originY' , 'scaleX' , 'scaleY' , 'shadow' , 'stroke' , 'strokeDashArray' , 'strokeLineJoin' , 'strokeMiterLimit' , 'type' , 'visible','clipTo', 'fill', 'strokeLineCap', 'strokeWidth', 'width','radius');
-        cleaned.loc = [cleaned.left*100,cleaned.top*100]
+        cleaned.loc = [cleaned.left*multiplicator,cleaned.top*multiplicator]
         cleaned.rotation = cleaned.angle
         cleaned = _.omit(cleaned,'left','top')
         return cleaned
@@ -119,7 +138,7 @@ angular.module('neurocidEditorApp')
               'originX' , 'originY',
               'scaleX' , 'scaleY' ,
               'shadow' , 'stroke' , 'strokeDashArray' , 'strokeLineJoin' , 'strokeMiterLimit' , 'type' , 'visible','clipTo', 'fill', 'strokeLineCap', 'strokeWidth', 'width','radius');
-            cleaned.loc = [cleaned.left*100,cleaned.top*100];
+            cleaned.loc = [cleaned.left*multiplicator,cleaned.top*multiplicator];
             cleaned.rotation = cleaned.angle;
             cleaned = _.omit(cleaned,'left','top','angle');
 
