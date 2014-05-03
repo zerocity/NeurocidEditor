@@ -54,7 +54,7 @@ body {
   position: relative;
   padding-left: 0px;
   overflow: auto;
-  height: 545px;
+  height: 620px;
   width: 95%;
   border: 1px solid #565656;
   border-radius: 3px;
@@ -105,4 +105,8 @@ body {
   background-clip: content-box;
   border-radius: 3px;
   border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+#ship_list li {
+  margin-bottom: 10px;
 }

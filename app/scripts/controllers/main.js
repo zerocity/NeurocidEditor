@@ -12,53 +12,38 @@ angular.module('neurocidEditorApp')
     var centerEditorY = editorDiv.clientHeight / 2
     var centerEditorX = editorDiv.clientWidth / 2
 
-    var canvasMove = false
-    var startMove = ''
-
-    canvas.getFabric().on('mouse:move', function(o) {
-      var lx = (o.e.layerX-editorDiv.scrollLeft <= 150), // left x
-          rx = (o.e.layerX-editorDiv.scrollLeft >= editorDiv.clientWidth-150), // right x
-          ly = o.e.layerY-editorDiv.scrollTop <= 150, // left y
-          ry = o.e.layerY-editorDiv.scrollTop >= editorDiv.clientHeight-150; // right y
-
-
-      if (lx || rx || ly || ry) {
-
-        if (canvasMove == false) {
-          canvasMove = true
-          startMove = Date.now() + 1500;
-        }
-
-        if (startMove <= Date.now() && canvasMove == true) {
-
-          if (lx) {
-            editorDiv.scrollLeft = editorDiv.scrollLeft - 5;
-            //console.log('can move lx',lx);
-          }
-
-          if (ly) {
-            editorDiv.scrollTop = editorDiv.scrollTop - 5;
-            //console.log('can move ly',ly);
-          }
-
-          if (rx) {
-            editorDiv.scrollLeft = editorDiv.scrollLeft + 5;
-            //console.log('can move rx',rx);
-          }
-
-          if (ry) {
-            editorDiv.scrollTop = editorDiv.scrollTop + 5;
-            //console.log('can move ry',ry);
-          }
-
-        }
-
-      }else{
-        canvasMove = false
+    var setCanvasScroll = function(lx,rx,ly,ry) {
+      if (lx) {
+        editorDiv.scrollLeft = editorDiv.scrollLeft - 100;
+        //console.log('can move lx',lx);
       }
 
-    });
+      if (ly) {
+        editorDiv.scrollTop = editorDiv.scrollTop - 100;
+        //console.log('can move ly',ly);
+      }
 
+      if (rx) {
+        editorDiv.scrollLeft = editorDiv.scrollLeft + 100;
+        //console.log('can move rx',rx);
+      }
+
+      if (ry) {
+        editorDiv.scrollTop = editorDiv.scrollTop + 100;
+        //console.log('can move ry',ry);
+      }
+    }
+
+    canvas.getFabric().on('mouse:down', function(o) {
+      var lx = (o.e.layerX-editorDiv.scrollLeft <= 100), // left x
+          rx = (o.e.layerX-editorDiv.scrollLeft >= editorDiv.clientWidth-100), // right x
+          ly = o.e.layerY-editorDiv.scrollTop <= 100, // left y
+          ry = o.e.layerY-editorDiv.scrollTop >= editorDiv.clientHeight-100; // right y
+
+        if (lx || rx || ly || ry) {
+          setCanvasScroll(lx,rx,ly,ry)
+        }
+    });
 
     $scope.toggleProperties = function() {
       $scope.isHidden = !$scope.isHidden;

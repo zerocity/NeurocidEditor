@@ -6,9 +6,13 @@ angular.module('neurocidEditorApp')
     // ...
     var canvas;
     canvas = new fabric.Canvas('canvas');
+    var img= new Image();
+    //canvas.setBackgroundImage('../images/bp.png');
+    canvas.backgroundColor = new fabric.Pattern({ source: '../images/bp.png'})
+
     canvas.setHeight(3000);
     canvas.setWidth(3000);
-    canvas.backgroundColor = '#000000';
+    //canvas.backgroundColor = '#000000';
     canvas.selectionColor = 'rgba(255,255,255,0.3)';
     canvas.selectionDashArray = [10,10];
     canvas.selectionBorderColor = 'blue';

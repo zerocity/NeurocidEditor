@@ -1,6 +1,18 @@
 {
   "name": "neurocideditor",
-  "version": "0.0.0",
+  "main": "app://host/index.html",
+  "version": "0.1.1",
+  "window": {
+    "title": "Neurocid Editor",
+    "icon": "images/yeoman.png",
+    "toolbar": false,
+    "frame": false,
+    "width": 945,
+    "height": 600,
+    "min_width": 945,
+    "min_height": 600,
+    "resizable": true
+  },
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.1",
