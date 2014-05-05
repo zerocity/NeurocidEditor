@@ -19,12 +19,9 @@
             <a ng-click='addLine(10,true)'>Add line</a>
         </li>
         <li>
-            <a ng-click='getJson()'>get Json</a>
-        </li>
-        <li>
             <a ng-click='exportJson()'>Export</a>
         </li>
-        <p class="totalShips">{{canvasShapes().length}} total</p>
+        <p class="totalShips">{{ ship.getShipCount() }} total</p>
     </ul>
 
     <a ng-click="toggleProperties()" ng-hide="isHidden">back</a>

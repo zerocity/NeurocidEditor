@@ -104,7 +104,7 @@ angular.module('neurocidEditorApp')
           PropertyIdCount = PropertyIdCount + 1;
           ship.PropertyId =PropertyIdCount
           ship.angle = 90;
-          ship.radius = 3 * canvas.getCanvasScale()
+          ship.radius = 3;
           data.push(ship);
         } else {
           // Team B
@@ -112,7 +112,7 @@ angular.module('neurocidEditorApp')
           PropertyIdCount = PropertyIdCount + 1;
           ship.PropertyId =PropertyIdCount
           ship.TeamA = false;
-          ship.radius = 3 * canvas.getCanvasScale()
+          ship.radius = 3;
           ship.fill= 'blue';
           ship.angle = 360 - 90;
           data.push(ship);
@@ -120,7 +120,6 @@ angular.module('neurocidEditorApp')
         return canvas.set(ship);
       },
       getProperties: function(shape) {
-        console.log(shape);
          var cleaned = _.omit(shape.toJSON(),'backgroundColor', 'flipX' , 'flipY' , 'height' , 'opacity' , 'originX' , 'originY' , 'scaleX' , 'scaleY' , 'shadow' , 'stroke' , 'strokeDashArray' , 'strokeLineJoin' , 'strokeMiterLimit' , 'type' , 'visible','clipTo', 'fill', 'strokeLineCap', 'strokeWidth', 'width','radius');
         cleaned.loc = [cleaned.left*multiplicator,cleaned.top*multiplicator]
         cleaned.rotation = cleaned.angle
