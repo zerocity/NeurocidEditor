@@ -4,6 +4,36 @@ angular.module('neurocidEditorApp')
   .controller('MainCtrl', function ($scope,canvas,Editor,$timeout,Ship) {
     $scope.isHidden = true ;
     // set pos in canvas
+    $(document).mousemove(function (evt) {
+      $scope.currentMousePosX = ( evt.pageX - $('#editor').offset().left ) + $('#editor').scrollLeft();
+      $scope.currentMousePosY = ( evt.pageY - $('#editor').offset().top  ) + $('#editor').scrollTop();
+    });
+
+    $scope.keyPress = function(event) {
+      console.log(event.which);
+      switch(event.which) {
+        case 83:
+          console.log('newShip TeamA'); // key S
+          Ship.createShip(true,$scope.currentMousePosX,$scope.currentMousePosY);
+          break;
+        case 65: // key a
+          console.log('new Facilities TeamA'); // key A
+          Ship.createFacilities(true,$scope.currentMousePosX,$scope.currentMousePosY);
+          break;
+        case 87:
+          console.log('newShip TeamB'); // key S
+          Ship.createShip(false,$scope.currentMousePosX,$scope.currentMousePosY);
+          break
+        case 81:
+          console.log('new Facilities TeamB'); // key A
+          Ship.createFacilities(false,$scope.currentMousePosX,$scope.currentMousePosY);
+          break
+        case 46:
+          console.log('deleat entry');
+          canvas.remove(canvas.getActiveObject());
+      }
+    }
+
     $scope.ship = {
       getShipCount : function() {
         return canvas.canvasShapes().length
@@ -50,7 +80,6 @@ angular.module('neurocidEditorApp')
     $scope.exportJson = function () {
       var aa = document.getElementById('jsonexport')
       var encodeJson = window.btoa( JSON.stringify( Editor.getJson() ) )
-      console.log(encodeJson);
       aa.download = "schema.nej"
       aa.href = "data:text/json;base64," + encodeJson;
     };

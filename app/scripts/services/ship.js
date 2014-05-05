@@ -176,7 +176,6 @@ angular.module('neurocidEditorApp')
           //cleaned.loc = [cleaned.left,cleaned.top];
 
           if (ship.type === 'ship') {
-              console.log('ship');
               cleaned.loc = [cleaned.left*multiplicator,cleaned.top*multiplicator]
               cleaned.rotation = cleaned.angle * (Math.PI / 180) ;
               cleaned.radius = 50 // default

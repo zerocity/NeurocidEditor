@@ -75,7 +75,6 @@ angular.module('neurocidEditorApp')
           "FacilitiesA":Team.FacilitiesA,
           "FacilitiesB":Team.FacilitiesB
           }
-          console.log(Senario);
       return Senario
       }
     }

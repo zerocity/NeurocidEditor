@@ -2,6 +2,11 @@ body {
   color: #565656;
 }
 
+#main:focus{
+  border: 0px;
+  outline: 0;
+}
+
 #right-sidebar {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
