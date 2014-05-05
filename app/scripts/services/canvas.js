@@ -71,14 +71,20 @@ angular.module('neurocidEditorApp')
         canvas.renderAll();
         canvas.calcOffset();
       },
+      remove : function(object) {
+        canvas.remove(object)
+      },
       setCanvasScale : function () {
         canvasScale = canvasScale / SCALE_FACTOR
       },
       canvasShapes : function () {
         return canvas.getObjects();
       },
-      setActiveObject :function(shape) {
+      setActiveObject : function(shape) {
         return canvas.setActiveObject(shape);
+      },
+      getActiveObject : function() {
+        return canvas.getActiveObject()
       },
       calcOffset : function() {
         return canvas.calcOffset();

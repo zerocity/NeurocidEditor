@@ -24,8 +24,8 @@
         <li>
             <a ng-click='getFacilities()'> json Facilities </a>
         </li>
-        <li>
-            <a ng-click='exportJson()'>Export</a>
+        <li ng-mouseover="exportJson()">
+            <a  href="" id="jsonexport" target="_blank">Export</a>
         </li>
         <p class="totalShips">{{ ship.getShipCount() }} total</p>
     </ul>
@@ -33,12 +33,21 @@
     <a ng-click="toggleProperties()" ng-hide="isHidden">back</a>
     <ul id="ship_list" ng-show="isHidden">
       <hr>
-        <li ng-repeat="shape in canvasShapes()">
-            <span ng-click="getProperties()">Ship {{$index +1}}</span>
+        <li ng-repeat="shape in canvasShapes()" ng-switch on="shape.type">
+            <ul>
+              <li style="float: left; cursor: pointer; margin: 0px;">
+                <span ng-click="getProperties()" ng-switch-when="ship">Ship {{$index +1}}</span>
+                <span ng-click="getProperties()" ng-switch-when="Facilities">Facilities {{$index +1}}</span>
+              </li>
+              <li style="float: right; cursor: pointer; margin: 0px;">
+                <span ng-click="removeEntry()" class="remove"> X </span>
+              </li>
+              <hr style="clear:both; border : 0;">
+            </ul>
         </li>
     </ul>
-
-    <ul ng-hide="isHidden">
+<div ng-hide="isHidden" ng-switch on="properties.type">
+    <ul ng-switch-when="ship">
         <li><br>
          Left {{ properties.loc[0]}} - Top {{ properties.loc[1]}}
         </li>
@@ -155,8 +164,17 @@
               FitnessFunction : {{properties.fitnessFunction}}
           </a>
         </li>
-
     </ul>
+
+    <ul ng-switch-when="Facilities">
+        <li>
+          <a href="#" editable-text="properties.maxCooldown" e-title="Facilities Cooldown">
+            Facilities Cooldown : {{properties.maxCooldown || 'empty' }}
+          </a>
+        </li>
+    </ul>
+</div>
+
 
 </div>
 

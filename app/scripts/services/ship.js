@@ -136,8 +136,7 @@ angular.module('neurocidEditorApp')
         this.set('teamA', options.teamA || true);
 
         // int
-        this.set('maxCooldown', options.maxCooldown|| 5);
-
+        this.set('maxCooldown', options.maxCooldown|| 500);
 
       },
 

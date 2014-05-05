@@ -48,7 +48,14 @@ angular.module('neurocidEditorApp')
     };
 
     $scope.exportJson = function () {
-      window.open("data:text/json;charset=utf-8," + escape( JSON.stringify( Editor.getJson() ) ) );
+      var aa = document.getElementById('jsonexport')
+      var encodeJson = window.btoa( JSON.stringify( Editor.getJson() ) )
+      console.log(encodeJson);
+      aa.download = "schema.nej"
+      aa.href = "data:text/json;base64," + encodeJson;
+      console.log(aa);
+      //window.open("data:text/json;base64," + encodeJson);
+      //window.open("data:text/json;charset=utf-8," + escape( JSON.stringify( Editor.getJson() ) ) );
     };
 
     $scope.canvasShapes = function() {
@@ -61,6 +68,12 @@ angular.module('neurocidEditorApp')
       // center Editor to ship loc 1 Y loc 0 X
       Editor.centerEditor(this.shape,$scope.properties.loc[1],$scope.properties.loc[0]);
       // set focus on selected shape
+    };
+
+    $scope.removeEntry = function() {
+      console.log(this.shape);
+      //console.log(canvas.getActiveObject());
+      canvas.remove(this.shape);
     };
 
   }).filter('isValue', function () {

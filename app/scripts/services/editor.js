@@ -65,7 +65,8 @@ angular.module('neurocidEditorApp')
                   300000
               ],
               "distance": 10000,
-              "placer": "placer/opposite",
+              "placer": "placer/fuzzer",
+              "fuzz":4,
               "rotation": 0,
               "spacing": 100
           },
