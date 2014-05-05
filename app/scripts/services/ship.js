@@ -64,7 +64,7 @@ angular.module('neurocidEditorApp')
         this.set("startFuel" , options.startFuel || 1000);
         this.set("hardness" , options.hardness || 100);
         this.set("startAmmo" , options.startAmmo || 0);
-        this.set("fitnessFunction" , options.fitnessFunction || "amir");
+        this.set("fitnessFunction" , options.fitnessFunction || "fitness/amir");
 
       },
 
