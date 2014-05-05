@@ -53,9 +53,6 @@ angular.module('neurocidEditorApp')
       console.log(encodeJson);
       aa.download = "schema.nej"
       aa.href = "data:text/json;base64," + encodeJson;
-      console.log(aa);
-      //window.open("data:text/json;base64," + encodeJson);
-      //window.open("data:text/json;charset=utf-8," + escape( JSON.stringify( Editor.getJson() ) ) );
     };
 
     $scope.canvasShapes = function() {
