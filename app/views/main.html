@@ -22,6 +22,9 @@
             <a ng-click='addFacilities(false)'> add Facilities B </a>
         </li>
         <li>
+            <a ng-click='getFacilities()'> json Facilities </a>
+        </li>
+        <li>
             <a ng-click='exportJson()'>Export</a>
         </li>
         <p class="totalShips">{{ ship.getShipCount() }} total</p>
@@ -142,14 +145,14 @@
         </li>
 
         <li>
-          <a href="#" editable-number="properties.startammo" e-title="">
-              Startammo : {{properties.startammo}}
+          <a href="#" editable-number="properties.startAmmo" e-title="">
+              StartAmmo : {{properties.startammo}}
           </a>
         </li>
 
         <li>
-          <a href="#" editable-text="properties.fitnessfunction" e-title="">
-              Fitnessfunction : {{properties.fitnessfunction}}
+          <a href="#" editable-text="properties.fitnessFunction" e-title="">
+              FitnessFunction : {{properties.fitnessFunction}}
           </a>
         </li>
 

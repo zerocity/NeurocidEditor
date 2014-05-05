@@ -69,33 +69,11 @@ angular.module('neurocidEditorApp')
               "rotation": 0,
               "spacing": 100
           },
-          "FacilitiesA": [
-              {
-                  "radius": 50,
-                  "range": 50,
-                  "maxCooldown": 5,
-                  "loc": [
-                      11041,
-                      11161
-                  ],
-                  "rotation": 52.47
-              }
-          ],
-          "FacilitiesB": [
-              {
-                  "radius": 50,
-                  "range": 50,
-                  "maxCooldown": 5,
-                  "loc": [
-                      11041,
-                      11161
-                  ],
-                  "rotation": 52.47
-              }
-          ],
           "TeamA":Team.TeamA,
-          "TeamB":Team.TeamB
-          };
+          "TeamB":Team.TeamB,
+          "FacilitiesA":Team.FacilitiesA,
+          "FacilitiesB":Team.FacilitiesB
+          }
           console.log(Senario);
       return Senario
       }

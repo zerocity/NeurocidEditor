@@ -16,7 +16,6 @@ angular.module('neurocidEditorApp')
     canvas.selectionLineWidth = 3;
     canvas.allowTouchScrolling = true;
     canvas.renderAll();
-    console.log(canvas);
     var editorDiv = document.getElementById('editor');
     var centerEditorY = editorDiv.clientHeight / 2
     var centerEditorX = editorDiv.clientWidth / 2

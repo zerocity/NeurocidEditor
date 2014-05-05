@@ -63,8 +63,8 @@ angular.module('neurocidEditorApp')
         // new
         this.set("startFuel" , options.startFuel || 1000);
         this.set("hardness" , options.hardness || 100);
-        this.set("startammo" , options.startammo || 0);
-        this.set("fitnessfunction" , options.fitnessfunction || "amir");
+        this.set("startAmmo" , options.startAmmo || 0);
+        this.set("fitnessFunction" , options.fitnessFunction || "amir");
 
       },
 
@@ -92,8 +92,8 @@ angular.module('neurocidEditorApp')
 
           startFuel : this.get('startFuel'),
           hardness : this.get('hardness'),
-          startammo : this.get('startammo'),
-          fitnessfunction : this.get('fitnessfunction')
+          startAmmo : this.get('startAmmo'),
+          fitnessFunction : this.get('fitnessFunction')
 
         });
       },
@@ -155,32 +155,58 @@ angular.module('neurocidEditorApp')
       }
     });
 
+
+    this.getFacilities = function() {
+      var global = _.omit(canvas.toJSON(),'background');
+      console.log(global);
+    }
+
     this.getShips = function(shape) {
       var global = _.omit(canvas.toJSON(),'background'),
           TeamA = [],
-          TeamB = [];
+          TeamB = [],
+          FacilitiesA = [],
+          FacilitiesB = [];
       _.each(global['objects'],function (ship){
            var cleaned = _.omit(ship,'backgroundColor',
             'flipX' , 'flipY',
             'height' , 'opacity',
             'originX' , 'originY',
             'scaleX' , 'scaleY' ,
-            'shadow' , 'stroke' , 'strokeDashArray' , 'strokeLineJoin' , 'strokeMiterLimit' , 'type' , 'visible','clipTo', 'fill', 'strokeLineCap', 'strokeWidth', 'width','radius');
+            'shadow' , 'stroke' , 'strokeDashArray' , 'strokeLineJoin' , 'strokeMiterLimit' , 'visible','clipTo', 'fill', 'strokeLineCap', 'strokeWidth', 'width','radius');
           //cleaned.loc = [cleaned.left,cleaned.top];
-          cleaned.loc = [cleaned.left*multiplicator,cleaned.top*multiplicator]
-          cleaned.rotation = cleaned.angle;
-          cleaned.radius = 50 // default
-          cleaned = _.omit(cleaned,'left','top','angle');
-          console.log('test');
-          if (cleaned.teamA) {
-            cleaned = _.omit(cleaned,'TeamA');
-            TeamA.push(cleaned);
-          } else {
-            cleaned = _.omit(cleaned,'TeamA');
-            TeamB.push(cleaned);
+
+          if (ship.type === 'ship') {
+              console.log('ship');
+              cleaned.loc = [cleaned.left*multiplicator,cleaned.top*multiplicator]
+              cleaned.rotation = cleaned.angle * (Math.PI / 180) ;
+              cleaned.radius = 50 // default
+              cleaned = _.omit(cleaned,'left','top','angle','type');
+              if (cleaned.teamA) {
+                cleaned = _.omit(cleaned,'teamA');
+                TeamA.push(cleaned);
+              } else {
+                cleaned = _.omit(cleaned,'teamA');// propertie type name is teamA (true/false) false = team B
+                TeamB.push(cleaned);
+              }
           }
+
+          if (ship.type === 'Facilities') {
+            cleaned.loc = [cleaned.left*multiplicator,cleaned.top*multiplicator]
+            cleaned.rotation = cleaned.angle * (Math.PI / 180) ;
+            cleaned.radius = 6000 // default
+            cleaned = _.omit(cleaned,'left','top','angle','type');
+            if (cleaned.teamA) {
+              cleaned = _.omit(cleaned,'teamA');
+              FacilitiesA.push(cleaned);
+            } else {
+              cleaned = _.omit(cleaned,'teamA');
+              FacilitiesB.push(cleaned);
+            }
+          }
+
       });
-      var ships = {'TeamA':TeamA,'TeamB':TeamB};
+      var ships = {'TeamA':TeamA,'TeamB':TeamB,'FacilitiesA':FacilitiesA,'FacilitiesB':FacilitiesB};
       return ships;
     }
 
@@ -223,7 +249,7 @@ angular.module('neurocidEditorApp')
 
 
     this.getProperties = function(shape) {
-      var cleaned = _.omit(shape.toJSON(),'backgroundColor', 'flipX' , 'flipY' , 'height' , 'opacity' , 'originX' , 'originY' , 'scaleX' , 'scaleY' , 'shadow' , 'stroke' , 'strokeDashArray' , 'strokeLineJoin' , 'strokeMiterLimit' , 'type' , 'visible','clipTo', 'fill', 'strokeLineCap', 'strokeWidth', 'width','radius');
+      var cleaned = _.omit(shape.toJSON(),'backgroundColor', 'flipX' , 'flipY' , 'height' , 'opacity' , 'originX' , 'originY' , 'scaleX' , 'scaleY' , 'shadow' , 'stroke' , 'strokeDashArray' , 'strokeLineJoin' , 'strokeMiterLimit' , 'visible','clipTo', 'fill', 'strokeLineCap', 'strokeWidth', 'width','radius');
       cleaned.loc = [cleaned.left,cleaned.top]
       cleaned.rotation = cleaned.angle
       cleaned = _.omit(cleaned,'left','top')
@@ -232,7 +258,7 @@ angular.module('neurocidEditorApp')
 
     this.exportSenario = function() {
       //var Team = $scope.getShipsJson();
-      console.log(Team);
+      console.warn('!!!! Isnt the corret layout Team');
       var Senario = {
         "BattleFieldLayout": {
           "width": 300000,

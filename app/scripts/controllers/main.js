@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('neurocidEditorApp')
-  .controller('MainCtrl', function ($scope,canvas,Editor,$timeout) {
+  .controller('MainCtrl', function ($scope,canvas,Editor,$timeout,Ship) {
     $scope.isHidden = true ;
     // set pos in canvas
     $scope.ship = {
@@ -20,7 +20,6 @@ angular.module('neurocidEditorApp')
       editorDiv.scrollTop = 1500;
 
       // init ship
-      console.log(canvas.renderAll);
       Editor.addShip(true)
     })
 
@@ -32,6 +31,10 @@ angular.module('neurocidEditorApp')
 
     $scope.addShip = function(TeamA) {
       Editor.addShip(TeamA)
+    };
+
+    $scope.getFacilities = function() {
+      Ship.getFacilities();
     };
 
     $scope.addFacilities = function(TeamA) {
