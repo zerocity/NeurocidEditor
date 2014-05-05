@@ -25,6 +25,28 @@ module.exports = function (grunt) {
       dist: 'dist'
     },
 
+    //gp-pages
+
+    'gh-pages': {
+      options: {
+        base: 'dist'
+      },
+      src: ['**']
+    },
+
+    // create node-webkit binarys
+
+    nodewebkit: {
+      options: {
+          build_dir: './webkitbuilds', // Where the build version of my node-webkit app is saved
+          mac: true, // We want to build it for mac
+          win: true, // We want to build it for win
+          linux32: true, // We don't need linux32
+          linux64: true // We don't need linux64
+      },
+      src: ['./dist/**/*'] // Your node-webkit app
+    },
+
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       bower: {
@@ -205,7 +227,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>/images',
-          src: '{,*/}*.{png,jpg,jpeg,gif}',
+          src: ['**/*.{png,jpg,jpeg,gif}'],
           dest: '<%= yeoman.dist %>/images'
         }]
       }
@@ -382,7 +404,6 @@ module.exports = function (grunt) {
     'cdnify',
     'cssmin',
     'uglify',
-    'rev',
     'usemin',
     'htmlmin'
   ]);

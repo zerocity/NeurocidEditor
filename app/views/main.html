@@ -37,94 +37,119 @@
          Left {{ properties.loc[0]}} - Top {{ properties.loc[1]}}
         </li>
         <li>
-          <a href="#" editable-checkbox="properties.CanMove" e-title="can move">
-              {{ properties.CanMove && "Ship   movement ON " || "Ship movement OFF" }}
+          <a href="#" editable-checkbox="properties.canMove" e-title="can move">
+              {{ properties.canMove && "Ship   movement ON " || "Ship movement OFF" }}
           </a>
         </li>
 
         <li>
-          <a href="#" editable-checkbox="properties.CanRotate" e-title="can rotate">
-              {{ properties.CanRotate && "Ship rotation ON " || "Ship rotation OFF " }}
+          <a href="#" editable-checkbox="properties.canRotate" e-title="can rotate">
+              {{ properties.canRotate && "Ship rotation ON " || "Ship rotation OFF " }}
           </a>
         </li>
 
         <li>
-          <a href="#" editable-checkbox="properties.CanShoot" e-title="can shoot">
-              {{ properties.CanShoot && "Ship shooting ON " || " Ship shooting OFF" }}
+          <a href="#" editable-checkbox="properties.canShoot" e-title="can shoot">
+              {{ properties.canShoot && "Ship shooting ON " || " Ship shooting OFF" }}
           </a>
         </li>
 
         <li>
-          <a href="#" editable-checkbox="properties.IsDummy" e-title="Test dummy">
-            {{ properties.IsDummy && "Ship is brain dead " || " Ship is not a test dummy" }}
+          <a href="#" editable-checkbox="properties.isDummy" e-title="Test dummy">
+            {{ properties.isDummy && "Ship is brain dead " || " Ship is not a test dummy" }}
           </a>
         </li>
 
         <li>
-          <a href="#" editable-checkbox="properties.DisableProjectileFitness" e-title="DisableProjectileFitness">
-             {{ properties.DisableProjectileFitness && "DisableProjectileFitness ON" || " DisableProjectileFitness OFF" }}
+          <a href="#" editable-checkbox="properties.disableProjectileFitness" e-title="disableProjectileFitness">
+             {{ properties.disableProjectileFitness && "disableProjectileFitness ON" || " disableProjectileFitness OFF" }}
           </a>
         </li>
 
         <li>
-          <a href="#" editable-text="properties.MaxCooldown" e-title="Weapon Cooldown">
-            Weapon Cooldown : {{properties.MaxCooldown || 'empty' }}
+          <a href="#" editable-text="properties.maxCooldown" e-title="Weapon Cooldown">
+            Weapon Cooldown : {{properties.maxCooldown || 'empty' }}
           </a>
         </li>
 
         <li>
-          <a href="#" editable-text="properties.MaxAmmo" e-title="Ammunition">
-            Ammunition : {{properties.MaxAmmo || 'empty' }}
+          <a href="#" editable-text="properties.maxAmmo" e-title="Ammunition">
+            Ammunition : {{properties.maxAmmo || 'empty' }}
           </a>
         </li>
 
         <li>
-          <a href="#" editable-text="properties.MaxDamage" e-title="Weapon damage">
-            Weapon damage : {{properties.MaxDamage || 'empty' }}
+          <a href="#" editable-text="properties.maxDamage" e-title="Weapon damage">
+            Weapon damage : {{properties.maxDamage || 'empty' }}
           </a>
         </li>
 
         <li>
-          <a href="#" editable-text="properties.CrashesPerDamage" e-title="Crash damage ">
-            Crash damage : {{properties.CrashesPerDamage || 'empty' }}
+          <a href="#" editable-text="properties.crashesPerDamage" e-title="Crash damage ">
+            Crash damage : {{properties.crashesPerDamage || 'empty' }}
           </a>
         </li>
 
         <li>
-          <a href="#" editable-text="properties.NumPerfDesc" e-title="NumPerfDesc">
-            NumPerfDesc : {{properties.NumPerfDesc || 'empty' }}
+          <a href="#" editable-text="properties.numPerfDesc" e-title="numPerfDesc">
+            numPerfDesc : {{properties.numPerfDesc || 'empty' }}
           </a>
         </li>
 
         <li>
-          <a href="#" editable-number="properties.Range" e-title="">
-              Range : {{properties.Range}}
+          <a href="#" editable-number="properties.range" e-title="">
+              range : {{properties.range}}
           </a>
          </li>
 
         <li>
-          <a href="#" editable-number="properties.MaxSpeed" e-title="">
-              MaxSpeed : {{properties.MaxSpeed}}
+          <a href="#" editable-number="properties.maxSpeed" e-title="">
+              MaxSpeed : {{properties.maxSpeed}}
           </a>
          </li>
 
         <li>
-          <a href="#" editable-number="properties.MaxRotation" e-title="">
-              MaxRotation : {{properties.MaxRotation}}
+          <a href="#" editable-number="properties.maxRotation" e-title="">
+              MaxRotation : {{properties.maxRotation}}
           </a>
          </li>
 
         <li>
-            <a href="#" editable-number="properties.MaxFuel" e-title="">
-                MaxFuel : {{properties.MaxFuel}}
+            <a href="#" editable-number="properties.maxFuel" e-title="">
+                MaxFuel : {{properties.maxFuel}}
             </a>
         </li>
 
         <li>
-          <a href="#" editable-number="properties.FuelRate" e-title="">
-              FuelRate : {{properties.FuelRate}}
+          <a href="#" editable-number="properties.fuelRate" e-title="">
+              FuelRate : {{properties.fuelRate}}
           </a>
         </li>
+
+        <li>
+          <a href="#" editable-number="properties.startFuel" e-title="">
+              StartFuel : {{properties.startFuel}}
+          </a>
+        </li>
+
+        <li>
+          <a href="#" editable-number="properties.hardness" e-title="">
+              Hardness : {{properties.hardness}}
+          </a>
+        </li>
+
+        <li>
+          <a href="#" editable-number="properties.startammo" e-title="">
+              Startammo : {{properties.startammo}}
+          </a>
+        </li>
+
+        <li>
+          <a href="#" editable-text="properties.fitnessfunction" e-title="">
+              Fitnessfunction : {{properties.fitnessfunction}}
+          </a>
+        </li>
+
     </ul>
 
 </div>

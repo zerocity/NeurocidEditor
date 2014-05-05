@@ -2,6 +2,8 @@ node_modules
 dist
 dist.nw
 Neurocid
+webkitbuilds
+.grunt
 .tmp
 .sass-cache
 app/bower_components
