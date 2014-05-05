@@ -5,7 +5,7 @@ angular.module('neurocidEditorApp')
     // Fabric initiation
     var canvas = new fabric.Canvas('canvas');
     var img= new Image();
-    canvas.backgroundColor = new fabric.Pattern({ source: '../images/bp.png'})
+    canvas.backgroundColor = new fabric.Pattern({ source: 'images/bp.png'})
     canvas.renderAll();
 
     canvas.setHeight(3000);
