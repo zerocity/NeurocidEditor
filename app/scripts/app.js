@@ -2,12 +2,9 @@
 
 angular
   .module('neurocidEditorApp', [
-    'ngCookies',
-    'ngResource',
     'ngSanitize',
     'ngRoute',
-    'xeditable',
-    'mgcrea.ngStrap',
+    'xeditable'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -20,5 +17,6 @@ angular
       });
   })
   .run(function(editableOptions) {
-    editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+    editableOptions.theme = 'default'; // bootstrap3 theme. Can be also 'bs2', 'default'
   });
+/*    'ngCookies', 'ngResource',*/
