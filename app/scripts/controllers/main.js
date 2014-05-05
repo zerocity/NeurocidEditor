@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('neurocidEditorApp')
-  .controller('MainCtrl', function ($scope,canvas,Editor) {
+  .controller('MainCtrl', function ($scope,canvas,Editor,$timeout) {
     $scope.isHidden = true ;
     // set pos in canvas
     $scope.ship = {
@@ -13,10 +13,12 @@ angular.module('neurocidEditorApp')
           return canvas.lib.getActiveObject();
       }
     }
-
-    window.onresize = function(event) {
-      $scope.documentHeight = $( window ).height() - 75;
-    };
+    $timeout(function() {
+      // directive overides devault behavior
+      var editorDiv = document.getElementById('editor');
+      editorDiv.scrollLeft = 1500;
+      editorDiv.scrollTop = 1500;
+    })
 
     canvas.initMouseEvent();
 
@@ -59,26 +61,25 @@ angular.module('neurocidEditorApp')
   }).filter('iif', function () {
     return function(input, trueValue, falseValue) {
       return input ? trueValue : falseValue;
-  };
+    };
   }).directive('resize', function ($window) {
-  return function (scope, element) {
-    var w = angular.element($window);
-    scope.$watch(function () {
-      return { 'h': w.height(), 'w': w.width() };
-    }, function (newValue, oldValue) {
-      scope.windowHeight = newValue.h;
-            scope.windowWidth = newValue.w;
+    // this directive will override scrollleft position with $timeout it is posible to set the scrollpsoition
+    return function (scope, element) {
+      var w = angular.element($window);
+      scope.$watch(function () {
+        return { 'h': w.height(), 'w': w.width() };
+      }, function (newValue, oldValue) {
+        scope.windowHeight = newValue.h;
+        scope.windowWidth = newValue.w;
 
-            scope.style = function () {
-        return {
+        scope.style = function () {
+          return {
             'height': (newValue.h - 75) + 'px'
           };
-      };
-
-    }, true);
-
-    w.bind('resize', function () {
-      scope.$apply();
-    });
-  }
-})
+        };
+      }, true);
+      w.bind('resize', function () {
+        scope.$apply();
+      });
+    }
+});

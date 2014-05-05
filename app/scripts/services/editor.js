@@ -10,6 +10,7 @@ angular.module('neurocidEditorApp')
         var editorDiv = document.getElementById('editor');
         var centerEditorY = editorDiv.clientHeight / 2
         var centerEditorX = editorDiv.clientWidth / 2
+
         editorDiv.scrollTop = posY - centerEditorY // top
         editorDiv.scrollLeft = posX - centerEditorX // left
 

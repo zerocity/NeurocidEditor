@@ -21,8 +21,8 @@ angular.module('neurocidEditorApp')
     var centerEditorY = editorDiv.clientHeight / 2
     var centerEditorX = editorDiv.clientWidth / 2
     // center
-    editorDiv.scrollTop = 1500;
-    editorDiv.scrollLeft = 1500;
+    //editorDiv.scrollTop = 1500;
+    //editorDiv.scrollLeft = 1500;
 
     // ZOOM
     var copiedObject;
