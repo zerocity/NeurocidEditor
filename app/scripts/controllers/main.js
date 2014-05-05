@@ -18,6 +18,10 @@ angular.module('neurocidEditorApp')
       var editorDiv = document.getElementById('editor');
       editorDiv.scrollLeft = 1500;
       editorDiv.scrollTop = 1500;
+
+      // init ship
+      console.log(canvas.renderAll);
+      Editor.addShip(true)
     })
 
     canvas.initMouseEvent();
@@ -28,6 +32,10 @@ angular.module('neurocidEditorApp')
 
     $scope.addShip = function(TeamA) {
       Editor.addShip(TeamA)
+    };
+
+    $scope.addFacilities = function(TeamA) {
+      Editor.addFacilities(TeamA)
     };
 
     $scope.addLine = function(num,TeamA) {

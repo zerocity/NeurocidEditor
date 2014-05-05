@@ -23,6 +23,12 @@ angular.module('neurocidEditorApp')
         var centerEditorX = editorDiv.clientWidth / 2
         Ship.createShip(TeamA,editorDiv.scrollLeft + centerEditorX  ,editorDiv.scrollTop + centerEditorY );
       },
+      addFacilities : function(TeamA) {
+        var editorDiv = document.getElementById('editor');
+        var centerEditorY = editorDiv.clientHeight / 2
+        var centerEditorX = editorDiv.clientWidth / 2
+        Ship.createFacilities(TeamA,editorDiv.scrollLeft + centerEditorX  ,editorDiv.scrollTop + centerEditorY );
+      },
       getJson : function (){
       //return console.log(JSON.stringify(canvas.objects.toJSON()));
       //return Ship.getShips();

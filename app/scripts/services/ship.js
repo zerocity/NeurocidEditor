@@ -103,6 +103,58 @@ angular.module('neurocidEditorApp')
       }
     });
 
+    var Facilities = fabric.util.createClass(fabric.Circle, {
+
+      type: 'Facilities',
+
+      initialize: function(options) {
+        options || (options = { });
+
+        this.callSuper('initialize', options);
+        //change fabric defaults properties
+        this.set({
+          _controlsVisibility :{// disable scaling controll boxes
+            bl: false,
+            br: false,
+            mb: false,
+            ml: false,
+            mr: false,
+            mt: false,
+            mtr: true,
+            tl: false,
+            tr: false,
+          },
+          lockScalingY :true, // disable scaling y
+          lockScalingX :true, // disable scaling x
+          lockUniScaling: true,
+          padding:5, // padding to selection box
+          radius: 15,
+          fill: '#FBFF7F'
+        });
+        // Neurocid default properties
+        this.set('propertyId', options.propertyId || 0);
+        this.set('teamA', options.teamA || true);
+
+        // int
+        this.set('maxCooldown', options.maxCooldown|| 5);
+
+
+      },
+
+      toObject: function() {
+        return fabric.util.object.extend(this.callSuper('toObject'), {
+          propertyId : this.get('propertyId'),
+          teamA: this.get('teamA'),
+
+          maxCooldown: this.get('maxCooldown'),
+        });
+      },
+
+      _render: function(ctx) {
+        this.callSuper('_render', ctx);
+      }
+    });
+
     this.getShips = function(shape) {
       var global = _.omit(canvas.toJSON(),'background'),
           TeamA = [],
@@ -117,6 +169,7 @@ angular.module('neurocidEditorApp')
           //cleaned.loc = [cleaned.left,cleaned.top];
           cleaned.loc = [cleaned.left*multiplicator,cleaned.top*multiplicator]
           cleaned.rotation = cleaned.angle;
+          cleaned.radius = 50 // default
           cleaned = _.omit(cleaned,'left','top','angle');
           console.log('test');
           if (cleaned.teamA) {
@@ -137,28 +190,37 @@ angular.module('neurocidEditorApp')
     };
 
     this.createShip = function (TeamA,posX,posY){
-      if (TeamA) {
-        var ship = new Ship({left: posX, top: posY});
-        PropertyIdCount = PropertyIdCount + 1;
-        ship.propertyId =PropertyIdCount
-        ship.angle = 90;
-        ship.radius = 3;
-
-        data.push(ship);
-      } else {
-        // Team B
-        var ship = new Ship({left: 100 , top: 20 + 20 * canvas.canvasShapes().length });
-        PropertyIdCount = PropertyIdCount + 1;
-        ship.propertyId = PropertyIdCount
+      var ship = new Ship({left: posX, top: posY});
+      PropertyIdCount = PropertyIdCount + 1;
+      ship.propertyId =PropertyIdCount
+      ship.angle = 90; // Team A
+      ship.radius = 3;
+      ship.fill= 'red';
+      if (!TeamA) {
         ship.teamA = false;
-        ship.radius = 3;
         ship.fill= 'blue';
         ship.angle = 360 - 90;
-
-        data.push(ship);
       }
+      data.push(ship);
       return canvas.set(ship);
     }
+
+    this.createFacilities = function (TeamA,posX,posY){
+      var facilities = new Facilities({left: posX, top: posY});
+      PropertyIdCount = PropertyIdCount + 1;
+      facilities.propertyId =PropertyIdCount
+      facilities.angle = 90;
+      facilities.radius = 15;
+      facilities.fill= 'red';
+      if (!TeamA) {
+        facilities.fill= 'blue';
+        facilities.teamA = false;
+        facilities.angle = 360 - 90;
+      }
+      data.push(facilities);
+      return canvas.set(facilities);
+    }
+
 
     this.getProperties = function(shape) {
       var cleaned = _.omit(shape.toJSON(),'backgroundColor', 'flipX' , 'flipY' , 'height' , 'opacity' , 'originX' , 'originY' , 'scaleX' , 'scaleY' , 'shadow' , 'stroke' , 'strokeDashArray' , 'strokeLineJoin' , 'strokeMiterLimit' , 'type' , 'visible','clipTo', 'fill', 'strokeLineCap', 'strokeWidth', 'width','radius');
