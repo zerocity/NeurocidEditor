@@ -1,0 +1,26 @@
+{
+  "BattleFieldLayout": {
+    "width": 300000,
+    "height": 300000,
+    "iterations": 1500
+  },
+  "PhysicsLayout": {
+    "gravity": [
+      0,
+      0
+    ],
+    "timeStep": 0.033,
+    "positionIterations": 2,
+    "velocityIterations": 6,
+    "coordToMetersFactor": 0.03
+  },
+  "ScannerLayout": {
+    "disableClusterCenters": true,
+    "numClusters": 3,
+    "numFriends": 20,
+    "numEnemies": 20,
+    "numProjectiles": 20
+  },
+  "TeamA": [],
+  "TeamB": []
+}
